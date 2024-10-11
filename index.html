@@ -1,263 +1,209 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Помощник для Интендантов</title>
+    <title>Discord-like Site</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
             margin: 0;
             padding: 0;
+            background-color: #36393f;
+            color: #ffffff;
         }
         .container {
-            max-width: 800px;
-            margin: 50px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            height: 100vh;
         }
-        h1 {
-            text-align: center;
-            color: #0088cc;
-            margin-bottom: 30px;
+        .sidebar {
+            width: 250px;
+            background-color: #2f3136;
+            padding: 20px;
+        }
+        .sidebar h2 {
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+        .sidebar ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #40444b;
+        }
+        .main {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .main h1 {
+            margin-bottom: 20px;
+        }
+        .main section {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+        .main section.active {
+            display: block;
+            opacity: 1;
         }
         .command {
-            background-color: #e4e6eb;
-            border-radius: 10px;
             margin-bottom: 20px;
-            padding: 20px;
-            transition: background-color 0.3s ease;
-        }
-        .command:hover {
-            background-color: #d1d3d8;
-        }
-        .command h2 {
-            margin: 0 0 10px;
-            color: #0088cc;
-        }
-        .command p {
-            margin: 0 0 10px;
-        }
-        .command code {
-            background-color: #f0f2f5;
+            padding: 10px;
+            border: 1px solid #40444b;
             border-radius: 5px;
-            padding: 5px;
-            font-family: 'Courier New', Courier, monospace;
         }
-        .example {
+        .command-example {
             display: none;
             margin-top: 10px;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .show-example-btn {
-            background-color: #0088cc;
-            color: #fff;
-            border: none;
+            padding: 10px;
+            background-color: #2f3136;
             border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            opacity: 0;
+            transition: opacity 0.5s;
         }
-        .show-example-btn:hover {
-            background-color: #005bb5;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .container {
-            animation: fadeIn 1s ease-in-out;
-        }
-        .parallax {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        .parallax img {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-            transform: translateY(0);
-            transition: transform 0.3s ease;
+        .command-example.active {
+            display: block;
+            opacity: 1;
         }
     </style>
 </head>
 <body>
-    <div class="parallax">
-        <img src="https://bogatyr.club/uploads/posts/2023-03/1679168876_bogatyr-club-p-fon-parallaks-foni-pinterest-46.jpg" alt="Parallax Background">
-    </div>
     <div class="container">
-        <h1>Помощник для Интендантов</h1>
-
-        <div class="command">
-            <h2>!под</h2>
-            <p>Подсчет баллов, основанный на количестве рапортов.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>!под &lt;состав&gt; &lt;повышения&gt; &lt;остальные_рапорты&gt;</code></p>
-            </div>
+        <div class="sidebar">
+            <h2>Меню</h2>
+            <ul>
+                <li><a href="#" onclick="showSection('commands')">Команды</a></li>
+                <li><a href="#" onclick="showSection('training')">Обучение</a></li>
+            </ul>
         </div>
-
-        <div class="command">
-            <h2>!написатьроль</h2>
-            <p>Отправляет сообщение с упоминанием роли.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>!написатьроль @роль Текст сообщения</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>!написать</h2>
-            <p>Отправляет сообщение с текстом.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>!написать Текст сообщения</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/raport</h2>
-            <p>Пример команды с полями для заполнения.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/raport &lt;idn&gt; &lt;legion&gt; &lt;rank&gt; &lt;name&gt; &lt;steam_id&gt; &lt;кол_во_сроков&gt; &lt;нарушил&gt; &lt;image&gt;</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/dostupup</h2>
-            <p>Выдать доступ к команде /join и /setrank кому-то.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/dostupup @участник</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/dostupdown</h2>
-            <p>Забрать доступ к команде /join и /setrank у кого-то.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/dostupdown @участник</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/dostupinfo</h2>
-            <p>Показать, у кого есть доступ к команде /join.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/dostupinfo</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/join</h2>
-            <p>Добавить участника в таблицу.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/join &lt;idn&gt; &lt;title&gt; &lt;rank&gt; &lt;date_kmb&gt; &lt;date_upgrade&gt; &lt;squad&gt; &lt;specializations&gt; &lt;steam_id&gt; &lt;discord_id&gt; &lt;vygovory&gt;</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/dostupfullup</h2>
-            <p>Выдать полный доступ к командам /dostupup и /dostupdown кому-то.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/dostupfullup &lt;user&gt;</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/dostupfulldown</h2>
-            <p>Забрать полный доступ к командам /dostupup и /dostupdown у кого-то.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/dostupfulldown &lt;user&gt;</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/dostupfullinfo</h2>
-            <p>Показать пользователей с полным доступом к командам /dostupup и /dostupdown.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/dostupfullinfo</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/restarttab</h2>
-            <p>Полный перезапуск бота на таблицы.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/restarttab</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/vygovor_plus</h2>
-            <p>Добавляет выговор участнику.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/vygovor_plus &lt;Ник в таблице&gt; &lt;Письменные&gt; &lt;Устные&gt;</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/vygovor_minus</h2>
-            <p>Убирает выговор у участника.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/vygovor_minus &lt;Ник в таблице&gt; &lt;Письменные&gt; &lt;Устные&gt;</code></p>
-            </div>
-        </div>
-
-        <div class="command">
-            <h2>/setrank</h2>
-            <p>Изменить звание участника в таблице.</p>
-            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
-            <div class="example">
-                <p>Пример: <code>/setrank &lt;Ник в таблице&gt; &lt;Ранг который выдаете&gt; &lt;Причина&gt;</code></p>
-            </div>
+        <div class="main">
+            <h1>Добро пожаловать на сайт, похожий на Discord</h1>
+            <section id="commands" class="active">
+                <h2>Команды</h2>
+                <div class="command">
+                    <h3>!под</h3>
+                    <p>Подсчет баллов, основанный на количестве рапортов.</p>
+                    <button onclick="toggleExample('example1')">Пример</button>
+                    <div id="example1" class="command-example">!под &lt;состав&gt; &lt;повышения&gt; &lt;остальные_рапорты&gt;</div>
+                </div>
+                <div class="command">
+                    <h3>!написатьроль</h3>
+                    <p>Отправляет сообщение с упоминанием роли.</p>
+                    <button onclick="toggleExample('example2')">Пример</button>
+                    <div id="example2" class="command-example">!написатьроль @роль Текст сообщения</div>
+                </div>
+                <div class="command">
+                    <h3>!написать</h3>
+                    <p>Отправляет сообщение с текстом.</p>
+                    <button onclick="toggleExample('example3')">Пример</button>
+                    <div id="example3" class="command-example">!написать Текст сообщения</div>
+                </div>
+                <div class="command">
+                    <h3>/raport</h3>
+                    <p>Пример команды с полями для заполнения</p>
+                    <button onclick="toggleExample('example4')">Пример</button>
+                    <div id="example4" class="command-example">/raport &lt;idn&gt; &lt;legion&gt; &lt;rank&gt; &lt;name&gt; &lt;steam_id&gt; &lt;кол_во_сроков&gt; &lt;нарушил&gt; &lt;image&gt;</div>
+                </div>
+                <div class="command">
+                    <h3>/dostupup</h3>
+                    <p>Выдать доступ к команде /join и /setrank кому-то.</p>
+                    <button onclick="toggleExample('example5')">Пример</button>
+                    <div id="example5" class="command-example">/dostupup @участник</div>
+                </div>
+                <div class="command">
+                    <h3>/dostupdown</h3>
+                    <p>Забрать доступ к команде /join и /setrank у кого-то.</p>
+                    <button onclick="toggleExample('example6')">Пример</button>
+                    <div id="example6" class="command-example">/dostupdown @участник</div>
+                </div>
+                <div class="command">
+                    <h3>/dostupinfo</h3>
+                    <p>Показать, у кого есть доступ к команде /join.</p>
+                    <button onclick="toggleExample('example7')">Пример</button>
+                    <div id="example7" class="command-example">/dostupinfo</div>
+                </div>
+                <div class="command">
+                    <h3>/join</h3>
+                    <p>Добавить участника в таблицу.</p>
+                    <button onclick="toggleExample('example8')">Пример</button>
+                    <div id="example8" class="command-example">/join &lt;idn&gt; &lt;title&gt; &lt;rank&gt; &lt;date_kmb&gt; &lt;date_upgrade&gt; &lt;squad&gt; &lt;specializations&gt; &lt;steam_id&gt; &lt;discord_id&gt; &lt;vygovory&gt;</div>
+                </div>
+                <div class="command">
+                    <h3>/dostupfullup</h3>
+                    <p>Выдать полный доступ к командам /dostupup и /dostupdown кому-то.</p>
+                    <button onclick="toggleExample('example9')">Пример</button>
+                    <div id="example9" class="command-example">/dostupfullup &lt;user&gt;</div>
+                </div>
+                <div class="command">
+                    <h3>/dostupfulldown</h3>
+                    <p>Забрать полный доступ к командам /dostupup и /dostupdown у кого-то.</p>
+                    <button onclick="toggleExample('example10')">Пример</button>
+                    <div id="example10" class="command-example">/dostupfulldown &lt;user&gt;</div>
+                </div>
+                <div class="command">
+                    <h3>/dostupfullinfo</h3>
+                    <p>Показать пользователей с полным доступом к командам /dostupup и /dostupdown.</p>
+                    <button onclick="toggleExample('example11')">Пример</button>
+                    <div id="example11" class="command-example">/dostupfullinfo</div>
+                </div>
+                <div class="command">
+                    <h3>/restarttab</h3>
+                    <p>Полный перезапуск бота на таблицы.</p>
+                    <button onclick="toggleExample('example12')">Пример</button>
+                    <div id="example12" class="command-example">/restarttab</div>
+                </div>
+                <div class="command">
+                    <h3>/vygovor_plus</h3>
+                    <p>Добавляет выговор участнику.</p>
+                    <button onclick="toggleExample('example13')">Пример</button>
+                    <div id="example13" class="command-example">/vygovor_plus &lt;Ник в таблице&gt; &lt;Письменные&gt; &lt;Устные&gt;</div>
+                </div>
+                <div class="command">
+                    <h3>/vygovor_minus</h3>
+                    <p>Убирает выговор у участника.</p>
+                    <button onclick="toggleExample('example14')">Пример</button>
+                    <div id="example14" class="command-example">/vygovor_minus &lt;Ник в таблице&gt; &lt;Письменные&gt; &lt;Устные&gt;</div>
+                </div>
+                <div class="command">
+                    <h3>/setrank</h3>
+                    <p>Изменить звание участника в таблице.</p>
+                    <button onclick="toggleExample('example15')">Пример</button>
+                    <div id="example15" class="command-example">/setrank &lt;Ник в таблице&gt; &lt;Ранг который выдаете&gt; &lt;Причина&gt;</div>
+                </div>
+            </section>
+            <section id="training">
+                <h2>Обучение</h2>
+                <p>Здесь будет информация об обучении.</p>
+            </section>
         </div>
     </div>
 
     <script>
-        function toggleExample(button) {
-            const example = button.nextElementSibling;
-            if (example.style.display === 'none' || example.style.display === '') {
-                example.style.display = 'block';
-                example.style.opacity = '1';
-                example.style.transform = 'translateX(0)';
-            } else {
-                example.style.display = 'none';
-                example.style.opacity = '0';
-                example.style.transform = 'translateX(-20px)';
-            }
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.main section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
         }
 
-        window.addEventListener('scroll', function() {
-            const parallax = document.querySelector('.parallax img');
-            let scrollPosition = window.pageYOffset;
-            parallax.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
-        });
+        function toggleExample(exampleId) {
+            const example = document.getElementById(exampleId);
+            example.classList.toggle('active');
+        }
     </script>
 </body>
 </html>
