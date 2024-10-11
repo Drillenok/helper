@@ -156,12 +156,17 @@
             83% { color: indigo; }
             100% { color: violet; }
         }
+
+        /* Apply rainbow text to all text elements */
+        body, h1, h2, h3, p, a, button {
+            animation: rainbow 5s linear infinite;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="sidebar">
-            <h2 class="rainbow-text">Меню</h2>
+            <h2>Меню</h2>
             <ul>
                 <li><a href="#" onclick="showSection('commands')">Команды</a></li>
             </ul>
