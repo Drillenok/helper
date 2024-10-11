@@ -5,32 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord-like Site</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
             background-color: #36393f;
             color: #ffffff;
+            line-height: 1.6;
+            transition: background-color 0.5s;
         }
+
         .container {
             display: flex;
             height: 100vh;
         }
+
         .sidebar {
             width: 250px;
             background-color: #2f3136;
             padding: 20px;
+            overflow-y: auto;
         }
+
         .sidebar h2 {
             margin-bottom: 20px;
         }
+
         .sidebar ul {
             list-style-type: none;
             padding: 0;
         }
+
         .sidebar ul li {
             margin-bottom: 10px;
         }
+
         .sidebar ul li a {
             color: #ffffff;
             text-decoration: none;
@@ -39,32 +52,67 @@
             border-radius: 5px;
             transition: background-color 0.3s;
         }
+
         .sidebar ul li a:hover {
             background-color: #40444b;
         }
+
         .main {
             flex-grow: 1;
             padding: 20px;
             overflow-y: auto;
         }
+
         .main h1 {
             margin-bottom: 20px;
         }
+
         .main section {
             display: none;
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: opacity 0.5s, transform 0.5s;
+            transform: translateX(-100%);
         }
+
         .main section.active {
             display: block;
             opacity: 1;
+            transform: translateX(0);
         }
+
         .command {
             margin-bottom: 20px;
             padding: 10px;
             border: 1px solid #40444b;
             border-radius: 5px;
         }
+
+        .command h3 {
+            margin-bottom: 5px;
+        }
+
+        .command p {
+            margin-bottom: 10px;
+        }
+
+        .command button {
+            background-color: #5865f2;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .command button:hover {
+            background-color: #4c56cc;
+        }
+
+        .command button:active {
+            background-color: #324096;
+        }
+
         .command-example {
             display: none;
             margin-top: 10px;
@@ -72,11 +120,50 @@
             background-color: #2f3136;
             border-radius: 5px;
             opacity: 0;
-            transition: opacity 0.5s;
+            transition: opacity 0.5s, max-height 0.5s;
+            max-height: 0;
+            overflow: hidden;
         }
+
         .command-example.active {
             display: block;
             opacity: 1;
+            max-height: 100px;
+            animation: spin 2s ease-in-out forwards;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg) translateY(-50px); }
+            50% { transform: rotate(360deg) translateY(-50px); }
+            100% { transform: rotate(360deg) translateY(0); }
+        }
+
+        .command-example::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: conic-gradient(from 90deg, #ff0000 10%, #ff7f00 20%, #ffff00 30%, #00ff00 40%, #0000ff 50%, #4b0082 60%, #9d02d7 70%, #ff00ff 80%, #ff0000 90%);
+            animation: pulse 2s infinite;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); opacity: 0; }
+        }
+
+        .command-example.active::before {
+            animation-play-state: running;
+        }
+
+        .command-example.active::before {
+            animation-play-state: paused;
         }
     </style>
 </head>
@@ -202,7 +289,19 @@
 
         function toggleExample(exampleId) {
             const example = document.getElementById(exampleId);
+            const circle = example.querySelector('::before');
+
             example.classList.toggle('active');
+
+            if (example.classList.contains('active')) {
+                circle.style.animationPlayState = 'running';
+                setTimeout(() => {
+                    example.classList.remove('active');
+                    circle.style.animationPlayState = 'paused';
+                }, 3000);
+            } else {
+                circle.style.animationPlayState = 'paused';
+            }
         }
     </script>
 </body>
