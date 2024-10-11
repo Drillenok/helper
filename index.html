@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Помощник для Интендантов</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0088cc;
+            margin-bottom: 30px;
+        }
+        .command {
+            background-color: #e4e6eb;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            transition: background-color 0.3s ease;
+        }
+        .command:hover {
+            background-color: #d1d3d8;
+        }
+        .command h2 {
+            margin: 0 0 10px;
+            color: #0088cc;
+        }
+        .command p {
+            margin: 0 0 10px;
+        }
+        .command code {
+            background-color: #f0f2f5;
+            border-radius: 5px;
+            padding: 5px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .example {
+            display: none;
+            margin-top: 10px;
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        .show-example-btn {
+            background-color: #0088cc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .show-example-btn:hover {
+            background-color: #005bb5;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .container {
+            animation: fadeIn 1s ease-in-out;
+        }
+        .parallax {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .parallax img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="parallax">
+        <img src="https://bogatyr.club/uploads/posts/2023-03/1679168876_bogatyr-club-p-fon-parallaks-foni-pinterest-46.jpg" alt="Parallax Background">
+    </div>
+    <div class="container">
+        <h1>Помощник для Интендантов</h1>
+
+        <div class="command">
+            <h2>!под</h2>
+            <p>Подсчет баллов, основанный на количестве рапортов.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>!под &lt;состав&gt; &lt;повышения&gt; &lt;остальные_рапорты&gt;</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>!написатьроль</h2>
+            <p>Отправляет сообщение с упоминанием роли.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>!написатьроль @роль Текст сообщения</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>!написать</h2>
+            <p>Отправляет сообщение с текстом.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>!написать Текст сообщения</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/raport</h2>
+            <p>Пример команды с полями для заполнения.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/raport &lt;idn&gt; &lt;legion&gt; &lt;rank&gt; &lt;name&gt; &lt;steam_id&gt; &lt;кол_во_сроков&gt; &lt;нарушил&gt; &lt;image&gt;</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/dostupup</h2>
+            <p>Выдать доступ к команде /join и /setrank кому-то.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/dostupup @участник</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/dostupdown</h2>
+            <p>Забрать доступ к команде /join и /setrank у кого-то.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/dostupdown @участник</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/dostupinfo</h2>
+            <p>Показать, у кого есть доступ к команде /join.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/dostupinfo</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/join</h2>
+            <p>Добавить участника в таблицу.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/join &lt;idn&gt; &lt;title&gt; &lt;rank&gt; &lt;date_kmb&gt; &lt;date_upgrade&gt; &lt;squad&gt; &lt;specializations&gt; &lt;steam_id&gt; &lt;discord_id&gt; &lt;vygovory&gt;</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/dostupfullup</h2>
+            <p>Выдать полный доступ к командам /dostupup и /dostupdown кому-то.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/dostupfullup &lt;user&gt;</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/dostupfulldown</h2>
+            <p>Забрать полный доступ к командам /dostupup и /dostupdown у кого-то.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/dostupfulldown &lt;user&gt;</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/dostupfullinfo</h2>
+            <p>Показать пользователей с полным доступом к командам /dostupup и /dostupdown.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/dostupfullinfo</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/restarttab</h2>
+            <p>Полный перезапуск бота на таблицы.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/restarttab</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/vygovor_plus</h2>
+            <p>Добавляет выговор участнику.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/vygovor_plus &lt;Ник в таблице&gt; &lt;Письменные&gt; &lt;Устные&gt;</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/vygovor_minus</h2>
+            <p>Убирает выговор у участника.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/vygovor_minus &lt;Ник в таблице&gt; &lt;Письменные&gt; &lt;Устные&gt;</code></p>
+            </div>
+        </div>
+
+        <div class="command">
+            <h2>/setrank</h2>
+            <p>Изменить звание участника в таблице.</p>
+            <button class="show-example-btn" onclick="toggleExample(this)">Показать пример</button>
+            <div class="example">
+                <p>Пример: <code>/setrank &lt;Ник в таблице&gt; &lt;Ранг который выдаете&gt; &lt;Причина&gt;</code></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleExample(button) {
+            const example = button.nextElementSibling;
+            if (example.style.display === 'none' || example.style.display === '') {
+                example.style.display = 'block';
+                example.style.opacity = '1';
+                example.style.transform = 'translateX(0)';
+            } else {
+                example.style.display = 'none';
+                example.style.opacity = '0';
+                example.style.transform = 'translateX(-20px)';
+            }
+        }
+
+        window.addEventListener('scroll', function() {
+            const parallax = document.querySelector('.parallax img');
+            let scrollPosition = window.pageYOffset;
+            parallax.style.transform = 'translateY(' + scrollPosition * 0.5 + 'px)';
+        });
+    </script>
+</body>
+</html>
