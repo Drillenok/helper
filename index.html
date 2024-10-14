@@ -1,80 +1,15 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Discord Clone</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="sidebar">
-    <div class="sidebar-section">
-      <h2>Серверы</h2>
-      <ul>
-        <li><a href="#">Сервер 1</a></li>
-        <li><a href="#">Сервер 2</a></li>
-        <li><a href="#">Сервер 3</a></li>
-      </ul>
+    <div class="game-container">
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
     </div>
-    <div class="sidebar-section">
-      <h2>Сообщения</h2>
-      <ul>
-        <li><a href="#">Канал 1</a></li>
-        <li><a href="#">Канал 2</a></li>
-        <li><a href="#">Канал 3</a></li>
-      </ul>
-    </div>
-    <div class="sidebar-section">
-      <h2>Друзья</h2>
-      <ul>
-        <li><a href="#">Друг 1</a></li>
-        <li><a href="#">Друг 2</a></li>
-        <li><a href="#">Друг 3</a></li>
-      </ul>
-    </div>
-    <div class="sidebar-section">
-      <h2>Профиль</h2>
-      <ul>
-        <li><a href="#">Настройки</a></li>
-        <li><a href="#">Выйти</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="main-content">
-    <header>
-      <h1>Профиль</h1>
-      <div class="profile-info">
-        <img src="https://via.placeholder.com/50" alt="Аватар">
-        <div class="profile-details">
-          <h2>Имя пользователя</h2>
-          <p>Email</p>
-        </div>
-      </div>
-    </header>
-
-    <section class="chat">
-      <h2>Чат</h2>
-      <ul id="messages">
-        <!-- Сообщения будут вставлены здесь с помощью JavaScript -->
-      </ul>
-      <form id="message-form">
-        <input type="text" id="message-input" placeholder="Введите ваше сообщение...">
-        <button type="submit">Отправить</button>
-      </form>
-    </section>
-
-    <section class="registration">
-      <h2>Регистрация</h2>
-      <form id="registration-form">
-        <input type="text" id="username" placeholder="Введите ваше имя пользователя...">
-        <input type="password" id="password" placeholder="Введите ваш пароль...">
-        <button type="submit">Зарегистрироваться</button>
-      </form>
-      <p id="registration-message"></p>
-    </section>
-  </div>
-
-  <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
