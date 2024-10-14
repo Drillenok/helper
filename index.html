@@ -1,58 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>Discord Clone</title>
+  <title>Drillok</title>
 </head>
 <body>
   <header>
     <nav>
       <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Servers</a></li>
-        <li><a href="#">Direct Messages</a></li>
-        <li><a href="#">Friends</a></li>
-        <li><a href="#">Settings</a></li>
+        <li><a href="#">Серверы</a></li>
+        <li><a href="#">Сообщения</a></li>
+        <li><a href="#">Друзья</a></li>
+        <li><a href="#">Профиль</a></li>
+        <li><a href="#">Выйти</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
     <aside>
-      <section id="channels">
-        <h2>Channels</h2>
-        <ul id="channel-list">
-          <!-- Каналы будут вставлены здесь с помощью JavaScript -->
+      <section id="servers">
+        <h2>Серверы</h2>
+        <ul id="server-list">
+          <!-- Серверы будут вставлены здесь с помощью JavaScript -->
         </ul>
-        <form id="channel-form">
-          <input type="text" id="channel-name" placeholder="Enter channel name...">
-          <button type="submit">Create Channel</button>
+        <form id="create-server-form">
+          <input type="text" id="server-name" placeholder="Введите название сервера...">
+          <button type="submit">Создать сервер</button>
         </form>
       </section>
 
       <section id="friends">
-        <h2>Friends</h2>
+        <h2>Друзья</h2>
         <ul id="friend-list">
           <!-- Друзья будут вставлены здесь с помощью JavaScript -->
         </ul>
         <form id="add-friend-form">
-          <input type="text" id="friend-username" placeholder="Enter friend's username...">
-          <button type="submit">Add Friend</button>
+          <input type="text" id="friend-username" placeholder="Введите имя пользователя друга...">
+          <button type="submit">Добавить друга</button>
         </form>
       </section>
     </aside>
 
-    <section>
-      <h2>Chat</h2>
+    <section id="chat">
+      <h2>Чат</h2>
       <ul id="messages">
         <!-- Сообщения будут вставлены здесь с помощью JavaScript -->
       </ul>
       <form id="message-form">
-        <input type="text" id="message-input" placeholder="Type your message...">
-        <button type="submit">Send</button>
+        <input type="text" id="message-input" placeholder="Введите ваше сообщение...">
+        <input type="file" id="file-input" accept="image/*,application/pdf" style="display: none;">
+        <label for="file-input" id="attach-file-button">Прикрепить файл</label>
+        <button type="submit">Отправить</button>
       </form>
+    </section>
+
+    <section id="profile">
+      <h2>Профиль</h2>
+      <form id="profile-form">
+        <label for="username">Имя пользователя:</label>
+        <input type="text" id="username" placeholder="Введите ваше имя пользователя...">
+        <label for="avatar">Аватар:</label>
+        <input type="file" id="avatar" accept="image/*">
+        <button type="submit">Сохранить изменения</button>
+      </form>
+      <div id="profile-preview">
+        <h3 id="current-username">Текущее имя пользователя: <span id="current-username-value">Пользователь</span></h3>
+        <img id="current-avatar" src="https://via.placeholder.com/50" alt="Текущий аватар">
+      </div>
+    </section>
+
+    <section id="registration">
+      <h2>Регистрация</h2>
+      <form id="registration-form">
+        <input type="text" id="username" placeholder="Введите ваше имя пользователя...">
+        <input type="password" id="password" placeholder="Введите ваш пароль...">
+        <button type="submit">Зарегистрироваться</button>
+      </form>
+      <p id="registration-message"></p>
     </section>
   </main>
 

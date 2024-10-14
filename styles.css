@@ -43,36 +43,30 @@ aside {
   width: 200px;
 }
 
-#channels,
-#friends {
-  border-left: 1px solid #4f545c;
-  padding-left: 1rem;
+aside section {
+  margin-bottom: 1rem;
 }
 
-#channel-list,
+#server-list,
 #friend-list {
   list-style-type: none;
   padding: 0;
 }
 
-#channel-list li,
+#server-list li,
 #friend-list li {
   margin-bottom: 0.5rem;
   padding: 0.5rem;
   cursor: pointer;
 }
 
-#channel-list li.active {
+#server-list li.active,
+#friend-list li.active {
   background-color: #4f545c;
   color: white;
 }
 
-#channel-form,
-#add-friend-form {
-  margin-top: 1rem;
-}
-
-section {
+#chat {
   flex-grow: 1;
   padding: 1rem;
 }
@@ -91,4 +85,33 @@ section {
 #message-input {
   flex-grow: 1;
   padding: 0.5rem;
+}
+
+#attach-file-button {
+  background-color: #7289da;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+}
+
+#profile {
+  border-left: 1px solid #4f545c;
+  padding-left: 1rem;
+}
+
+#profile-preview {
+  margin-top: 1rem;
+}
+
+#current-avatar {
+  max-width: 100%;
+  height: auto;
+}
+
+#registration {
+  border-left: 1px solid #4f545c;
+  padding-left: 1rem;
 }
