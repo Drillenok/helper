@@ -1,287 +1,61 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord-like Site</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #36393f;
-            color: #ffffff;
-            line-height: 1.6;
-            transition: background-color 0.5s;
-        }
-
-        .container {
-            display: flex;
-            height: 100vh;
-        }
-
-        .sidebar {
-            width: 250px;
-            background-color: #2f3136;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .sidebar h2 {
-            margin-bottom: 20px;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin-bottom: 10px;
-        }
-
-        .sidebar ul li a {
-            color: #ffffff;
-            text-decoration: none;
-            display: block;
-            padding: 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .sidebar ul li a:hover {
-            background-color: #40444b;
-        }
-
-        .main {
-            flex-grow: 1;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .main h1 {
-            margin-bottom: 20px;
-        }
-
-        .main section {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s, transform 0.5s;
-            transform: translateX(-100%);
-        }
-
-        .main section.active {
-            display: block;
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .command {
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 1px solid #40444b;
-            border-radius: 5px;
-        }
-
-        .command h3 {
-            margin-bottom: 5px;
-        }
-
-        .command p {
-            margin-bottom: 10px;
-        }
-
-        .command button {
-            background-color: #5865f2;
-            color: #ffffff;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .command button:hover {
-            background-color: #4c56cc;
-        }
-
-        .command button:active {
-            background-color: #324096;
-        }
-
-        .command-example {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #2f3136;
-            border-radius: 5px;
-            opacity: 0;
-            transition: opacity 0.5s, max-height 0.5s;
-            max-height: 0;
-            overflow: hidden;
-        }
-
-        .command-example.active {
-            display: block;
-            opacity: 1;
-            max-height: 100px;
-            animation: spin 2s ease-in-out forwards;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg) translateY(-50px); }
-            50% { transform: rotate(360deg) translateY(-50px); }
-            100% { transform: rotate(360deg) translateY(0); }
-        }
-
-        .rainbow-text {
-            font-size: 24px;
-            font-weight: bold;
-            animation: rainbow 5s linear infinite;
-        }
-
-        @keyframes rainbow {
-            0% { color: red; }
-            17% { color: orange; }
-            33% { color: yellow; }
-            50% { color: green; }
-            67% { color: blue; }
-            83% { color: indigo; }
-            100% { color: violet; }
-        }
-
-        /* Apply rainbow text to all text elements */
-        body, h1, h2, h3, p, a, button {
-            animation: rainbow 5s linear infinite;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Discord Clone</title>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <h2>Меню</h2>
-            <ul>
-                <li><a href="#" onclick="showSection('commands')">Команды</a></li>
-            </ul>
-        </div>
-        <div class="main">
-            <h1>Помогатор наркомании</h1>
-            <section id="commands" class="active">
-                <h2>Команды</h2>
-                <div class="command">
-                    <h3>!под</h3>
-                    <p>Подсчет баллов, основанный на количестве рапортов.</p>
-                    <button onclick="toggleExample('example1')">Пример</button>
-                    <div id="example1" class="command-example">!под &lt;состав&gt; &lt;повышения&gt; &lt;остальные_рапорты&gt;</div>
-                </div>
-                <div class="command">
-                    <h3>!написатьроль</h3>
-                    <p>Отправляет сообщение с упоминанием роли.</p>
-                    <button onclick="toggleExample('example2')">Пример</button>
-                    <div id="example2" class="command-example">!написатьроль @роль Текст сообщения</div>
-                </div>
-                <div class="command">
-                    <h3>!написать</h3>
-                    <p>Отправляет сообщение с текстом.</p>
-                    <button onclick="toggleExample('example3')">Пример</button>
-                    <div id="example3" class="command-example">!написать Текст сообщения</div>
-                </div>
-                <div class="command">
-                    <h3>/raport</h3>
-                    <p>Пример команды с полями для заполнения</p>
-                    <button onclick="toggleExample('example4')">Пример</button>
-                    <div id="example4" class="command-example">/raport &lt;idn&gt; &lt;legion&gt; &lt;rank&gt; &lt;name&gt; &lt;steam_id&gt; &lt;кол_во_сроков&gt; &lt;нарушил&gt; &lt;image&gt;</div>
-                </div>
-                <div class="command">
-                    <h3>/dostupup</h3>
-                    <p>Выдать доступ к команде /join и /setrank кому-то.</p>
-                    <button onclick="toggleExample('example5')">Пример</button>
-                    <div id="example5" class="command-example">/dostupup @участник</div>
-                </div>
-                <div class="command">
-                    <h3>/dostupdown</h3>
-                    <p>Забрать доступ к команде /join и /setrank у кого-то.</p>
-                    <button onclick="toggleExample('example6')">Пример</button>
-                    <div id="example6" class="command-example">/dostupdown @участник</div>
-                </div>
-                <div class="command">
-                    <h3>/dostupinfo</h3>
-                    <p>Показать, у кого есть доступ к команде /join.</p>
-                    <button onclick="toggleExample('example7')">Пример</button>
-                    <div id="example7" class="command-example">/dostupinfo</div>
-                </div>
-                <div class="command">
-                    <h3>/join</h3>
-                    <p>Добавить участника в таблицу.</p>
-                    <button onclick="toggleExample('example8')">Пример</button>
-                    <div id="example8" class="command-example">/join &lt;idn&gt; &lt;title&gt; &lt;rank&gt; &lt;date_kmb&gt; &lt;date_upgrade&gt; &lt;squad&gt; &lt;specializations&gt; &lt;steam_id&gt; &lt;discord_id&gt; &lt;vygovory&gt;</div>
-                </div>
-                <div class="command">
-                    <h3>/dostupfullup</h3>
-                    <p>Выдать полный доступ к командам /dostupup и /dostupdown кому-то.</p>
-                    <button onclick="toggleExample('example9')">Пример</button>
-                    <div id="example9" class="command-example">/dostupfullup &lt;user&gt;</div>
-                </div>
-                <div class="command">
-                    <h3>/dostupfulldown</h3>
-                    <p>Забрать полный доступ к командам /dostupup и /dostupdown у кого-то.</p>
-                    <button onclick="toggleExample('example10')">Пример</button>
-                    <div id="example10" class="command-example">/dostupfulldown &lt;user&gt;</div>
-                </div>
-                <div class="command">
-                    <h3>/dostupfullinfo</h3>
-                    <p>Показать пользователей с полным доступом к командам /dostupup и /dostupdown.</p>
-                    <button onclick="toggleExample('example11')">Пример</button>
-                    <div id="example11" class="command-example">/dostupfullinfo</div>
-                </div>
-                <div class="command">
-                    <h3>/restarttab</h3>
-                    <p>Полный перезапуск бота на таблицы.</p>
-                    <button onclick="toggleExample('example12')">Пример</button>
-                    <div id="example12" class="command-example">/restarttab</div>
-                </div>
-                <div class="command">
-                    <h3>/vygovor_plus</h3>
-                    <p>Добавляет выговор участнику.</p>
-                    <button onclick="toggleExample('example13')">Пример</button>
-                    <div id="example13" class="command-example">/vygovor_plus &lt;Ник в таблице&gt; &lt;Письменные&gt; &lt;Устные&gt;</div>
-                </div>
-                <div class="command">
-                    <h3>/vygovor_minus</h3>
-                    <p>Убирает выговор у участника.</p>
-                    <button onclick="toggleExample('example14')">Пример</button>
-                    <div id="example14" class="command-example">/vygovor_minus &lt;Ник в таблице&gt; &lt;Письменные&gt; &lt;Устные&gt;</div>
-                </div>
-                <div class="command">
-                    <h3>/setrank</h3>
-                    <p>Изменить звание участника в таблице.</p>
-                    <button onclick="toggleExample('example15')">Пример</button>
-                    <div id="example15" class="command-example">/setrank &lt;Ник в таблице&gt; &lt;Ранг который выдаете&gt; &lt;Причина&gt;</div>
-                </div>
-            </section>
-        </div>
-    </div>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Servers</a></li>
+        <li><a href="#">Direct Messages</a></li>
+        <li><a href="#">Friends</a></li>
+        <li><a href="#">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
 
-    <script>
-        function showSection(sectionId) {
-            const sections = document.querySelectorAll('.main section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId).classList.add('active');
-        }
+  <main>
+    <aside>
+      <section id="channels">
+        <h2>Channels</h2>
+        <ul id="channel-list">
+          <!-- Каналы будут вставлены здесь с помощью JavaScript -->
+        </ul>
+        <form id="channel-form">
+          <input type="text" id="channel-name" placeholder="Enter channel name...">
+          <button type="submit">Create Channel</button>
+        </form>
+      </section>
 
-        function toggleExample(exampleId) {
-            const example = document.getElementById(exampleId);
-            example.classList.toggle('active');
-        }
-    </script>
+      <section id="friends">
+        <h2>Friends</h2>
+        <ul id="friend-list">
+          <!-- Друзья будут вставлены здесь с помощью JavaScript -->
+        </ul>
+        <form id="add-friend-form">
+          <input type="text" id="friend-username" placeholder="Enter friend's username...">
+          <button type="submit">Add Friend</button>
+        </form>
+      </section>
+    </aside>
+
+    <section>
+      <h2>Chat</h2>
+      <ul id="messages">
+        <!-- Сообщения будут вставлены здесь с помощью JavaScript -->
+      </ul>
+      <form id="message-form">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button type="submit">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
 </body>
 </html>

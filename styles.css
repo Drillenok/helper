@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  background-color: #36393f;
+  color: white;
+  padding: 1rem;
+}
+
+nav ul {
+  display: flex;
+  list-style-type: none;
+}
+
+nav ul li {
+  margin-right: 1rem;
+}
+
+nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+main {
+  display: flex;
+  flex-grow: 1;
+}
+
+aside {
+  background-color: #2f3136;
+  color: white;
+  padding: 1rem;
+  width: 200px;
+}
+
+#channels,
+#friends {
+  border-left: 1px solid #4f545c;
+  padding-left: 1rem;
+}
+
+#channel-list,
+#friend-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+#channel-list li,
+#friend-list li {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+#channel-list li.active {
+  background-color: #4f545c;
+  color: white;
+}
+
+#channel-form,
+#add-friend-form {
+  margin-top: 1rem;
+}
+
+section {
+  flex-grow: 1;
+  padding: 1rem;
+}
+
+#messages {
+  list-style-type: none;
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
+#message-form {
+  display: flex;
+  justify-content: space-between;
+}
+
+#message-input {
+  flex-grow: 1;
+  padding: 0.5rem;
+}
