@@ -3,12 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
+    <title>Simple Sims</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="game-container">
-        <canvas id="gameCanvas" width="400" height="400"></canvas>
+    <div id="game-container">
+        <div id="character"></div>
+        <div id="interaction-buttons">
+            <button id="eat">Eat</button>
+            <button id="sleep">Sleep</button>
+            <button id="work">Work</button>
+        </div>
+        <div id="status">
+            <p>Hunger: <span id="hunger">100</span></p>
+            <p>Energy: <span id="energy">100</span></p>
+            <p>Money: <span id="money">0</span></p>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
