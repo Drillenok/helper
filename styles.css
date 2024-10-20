@@ -70,7 +70,6 @@ nav ul li a:hover {
     color: #ffd700;
 }
 
-
 .parallax-window {
     min-height: 100vh;
     position: relative;
@@ -213,4 +212,60 @@ h1.animate, h2.animate {
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Медиа-запросы для адаптивного дизайна */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .logo-container {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    .intro-content h1 {
+        font-size: 2rem;
+    }
+
+    .command {
+        width: 90%;
+    }
+
+    .collapsible {
+        font-size: 1rem;
+    }
+
+    .content p {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro-content h1 {
+        font-size: 1.5rem;
+    }
+
+    .command {
+        width: 95%;
+    }
+
+    .collapsible {
+        font-size: 0.9rem;
+    }
+
+    .content p {
+        font-size: 0.8rem;
+    }
 }
