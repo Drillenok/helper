@@ -29,7 +29,8 @@ nav ul li a {
 
 .parallax-window {
     min-height: 100vh;
-    background: transparent;
+    background: url('https://cdnb.artstation.com/p/assets/images/images/013/244/939/large/malik-ouda-10-post-fx.jpg?1538715645') no-repeat center center fixed;
+    background-size: cover;
     position: relative;
     overflow: hidden;
 }
