@@ -51,8 +51,33 @@ section {
     margin-bottom: 2rem;
 }
 
-.command h3 {
-    color: #ff6347;
+.collapsible {
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    padding: 1rem;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+}
+
+.collapsible:hover {
+    background-color: #555;
+}
+
+.content {
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+    background-color: #222;
+}
+
+.content p {
+    margin: 1rem 0;
 }
 
 footer {

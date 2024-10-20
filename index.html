@@ -17,7 +17,7 @@
         </nav>
     </header>
 
-    <section id="intro" class="parallax-window" data-parallax="scroll" data-image-src="https://i.imgur.com/fIjK3Y6.png">
+    <section id="intro" class="parallax-window" data-parallax="scroll" data-image-src="https://cdnb.artstation.com/p/assets/images/images/013/244/939/large/malik-ouda-10-post-fx.jpg?1538715645">
         <div class="intro-content">
             <h1>Обучение по использованию команд бота</h1>
             <p>Добро пожаловать на сайт, где вы узнаете, как использовать все команды нашего бота.</p>
@@ -27,59 +27,81 @@
     <section id="commands">
         <h2>Команды бота</h2>
         <div class="command">
-            <h3>/join</h3>
-            <p>Добавляет участника в таблицу.</p>
-            <p>Пример использования: /join IDN Имя Звание ДатаКМБ ДатаПовышения Отряд Специализации SteamID DiscordID Выговоры</p>
+            <button class="collapsible">/join</button>
+            <div class="content">
+                <p>Добавляет участника в таблицу.</p>
+                <p>Пример использования: /join IDN Имя Звание ДатаКМБ ДатаПовышения Отряд Специализации SteamID DiscordID Выговоры</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/dostupfullup</h3>
-            <p>Выдать полный доступ к командам /dostupup и /dostupdown кому-то.</p>
-            <p>Пример использования: /dostupfullup @пользователь</p>
+            <button class="collapsible">/dostupfullup</button>
+            <div class="content">
+                <p>Выдать полный доступ к командам /dostupup и /dostupdown кому-то.</p>
+                <p>Пример использования: /dostupfullup @пользователь</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/dostupfulldown</h3>
-            <p>Забрать полный доступ к командам /dostupup и /dostupdown у кого-то.</p>
-            <p>Пример использования: /dostupfulldown @пользователь</p>
+            <button class="collapsible">/dostupfulldown</button>
+            <div class="content">
+                <p>Забрать полный доступ к командам /dostupup и /dostupdown у кого-то.</p>
+                <p>Пример использования: /dostupfulldown @пользователь</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/dostupfullinfo</h3>
-            <p>Показать, у кого есть полный доступ.</p>
-            <p>Пример использования: /dostupfullinfo</p>
+            <button class="collapsible">/dostupfullinfo</button>
+            <div class="content">
+                <p>Показать, у кого есть полный доступ.</p>
+                <p>Пример использования: /dostupfullinfo</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/dostupup</h3>
-            <p>Выдать доступ к команде /join кому-то.</p>
-            <p>Пример использования: /dostupup @пользователь</p>
+            <button class="collapsible">/dostupup</button>
+            <div class="content">
+                <p>Выдать доступ к команде /join кому-то.</p>
+                <p>Пример использования: /dostupup @пользователь</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/dostupdown</h3>
-            <p>Забрать доступ к команде /join у кого-то.</p>
-            <p>Пример использования: /dostupdown @пользователь</p>
+            <button class="collapsible">/dostupdown</button>
+            <div class="content">
+                <p>Забрать доступ к команде /join у кого-то.</p>
+                <p>Пример использования: /dostupdown @пользователь</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/restarttab</h3>
-            <p>Полный перезапуск бота.</p>
-            <p>Пример использования: /restarttab</p>
+            <button class="collapsible">/restarttab</button>
+            <div class="content">
+                <p>Полный перезапуск бота.</p>
+                <p>Пример использования: /restarttab</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/dostupinfo</h3>
-            <p>Показать, у кого есть доступ к команде /join.</p>
-            <p>Пример использования: /dostupinfo</p>
+            <button class="collapsible">/dostupinfo</button>
+            <div class="content">
+                <p>Показать, у кого есть доступ к команде /join.</p>
+                <p>Пример использования: /dostupinfo</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/vygovor_plus</h3>
-            <p>Добавить выговор участнику.</p>
-            <p>Пример использования: /vygovor_plus Имя ПисьменныеУстные Причина</p>
+            <button class="collapsible">/vygovor_plus</button>
+            <div class="content">
+                <p>Добавить выговор участнику.</p>
+                <p>Пример использования: /vygovor_plus Имя ПисьменныеУстные Причина</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/vygovor_minus</h3>
-            <p>Убрать выговор у участника.</p>
-            <p>Пример использования: /vygovor_minus Имя ПисьменныеУстные Причина</p>
+            <button class="collapsible">/vygovor_minus</button>
+            <div class="content">
+                <p>Убрать выговор у участника.</p>
+                <p>Пример использования: /vygovor_minus Имя ПисьменныеУстные Причина</p>
+            </div>
         </div>
         <div class="command">
-            <h3>/setrank</h3>
-            <p>Изменить звание участника.</p>
-            <p>Пример использования: /setrank Имя НовоеЗвание Причина</p>
+            <button class="collapsible">/setrank</button>
+            <div class="content">
+                <p>Изменить звание участника.</p>
+                <p>Пример использования: /setrank Имя НовоеЗвание Причина</p>
+            </div>
         </div>
     </section>
 
