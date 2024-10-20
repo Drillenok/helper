@@ -14,6 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
             } else {
                 content.style.maxHeight = content.scrollHeight + "px";
             }
+            var icon = this.querySelector("i");
+            icon.classList.toggle("fa-chevron-up");
+            icon.classList.toggle("fa-chevron-down");
         });
     }
 
@@ -40,4 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     window.addEventListener("scroll", checkScroll);
     checkScroll();
+
+    // Анимация фона
+    var body = document.body;
+    body.style.transition = "background-color 0.5s";
+    window.addEventListener("scroll", function() {
+        var scrollPosition = window.scrollY;
+        var newColor = `rgba(18, 18, 18, ${Math.min(scrollPosition / 500, 1)})`;
+        body.style.backgroundColor = newColor;
+    });
 });
