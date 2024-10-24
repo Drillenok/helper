@@ -200,6 +200,137 @@ h1.animate, h2.animate {
     transform: scale(1.05);
 }
 
+/* Стили для бургер-меню */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu-toggle .bar {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 4px 0;
+    transition: 0.4s;
+}
+
+.menu-toggle.active .bar:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.active .bar:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+.menu ul li {
+    margin: 0 1rem;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #333, #555);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.menu ul li:hover {
+    background: linear-gradient(135deg, #555, #777);
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.menu ul li a:hover {
+    color: #ffd700;
+}
+
+.dropdown-menu {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #1e1e1e;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-menu.active {
+    display: flex;
+}
+
+.dropdown-menu ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+
+.dropdown-menu ul li {
+    margin: 0.5rem 0;
+    width: 100%;
+    text-align: left;
+}
+
+.dropdown-menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.dropdown-menu ul li a:hover {
+    color: #ffd700;
+}
+
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .menu {
+        display: none;
+    }
+
+    .menu.active {
+        display: flex;
+    }
+
+    .menu ul {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .menu ul li {
+        margin: 0.5rem 0;
+        width: 100%;
+        text-align: left;
+    }
+}
+
 /* Стили для анимации бегающих белых полосок */
 .animation-container {
     position: relative;
