@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Функция для загрузки данных из JSON
 async function loadWorkers() {
     try {
-        const response = await fetch('/worker/dobavlen.json'); // Обновите путь
+        const response = await fetch('dobavlen.json'); // Обновите путь
         const workers = await response.json();
         displayWorkers(workers);
     } catch (error) {
@@ -24,10 +24,10 @@ async function addWorker(event) {
     const worker = Object.fromEntries(formData.entries());
 
     try {
-        const response = await fetch('/worker/dobavlen.json'); // Обновите путь
+        const response = await fetch('dobavlen.json'); // Обновите путь
         const workers = await response.json();
         workers.push(worker);
-        await fetch('/worker/dobavlen.json', { // Обновите путь
+        await fetch('dobavlen.json', { // Обновите путь
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -44,10 +44,10 @@ async function addWorker(event) {
 // Функция для удаления работника
 async function deleteWorker(index) {
     try {
-        const response = await fetch('/worker/dobavlen.json'); // Обновите путь
+        const response = await fetch('dobavlen.json'); // Обновите путь
         const workers = await response.json();
         workers.splice(index, 1);
-        await fetch('/worker/dobavlen.json', { // Обновите путь
+        await fetch('dobavlen.json', { // Обновите путь
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ async function deleteWorker(index) {
 // Функция для авторизации
 async function authenticate() {
     try {
-        const response = await fetch('/worker/auth.json'); // Обновите путь
+        const response = await fetch('auth.json'); // Обновите путь
         const authData = await response.json();
         const username = prompt('Введите имя пользователя:');
         const password = prompt('Введите пароль:');
