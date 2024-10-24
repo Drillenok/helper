@@ -264,6 +264,40 @@ h1.animate, h2.animate {
     display: block;
 }
 
+/* Стили для анимации бегающих белых полосок */
+.animation-container {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    margin-top: 1rem;
+    overflow: hidden;
+}
+
+.line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    animation: moveLine 2s linear infinite;
+}
+
+.line:nth-child(2) {
+    animation-duration: 2.5s;
+}
+
+.line:nth-child(3) {
+    animation-duration: 3s;
+}
+
+@keyframes moveLine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
 /* Стили для отображения выпадающего меню */
 .dropdown-content.show {
     display: block;
