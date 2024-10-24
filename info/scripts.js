@@ -92,12 +92,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     window.addEventListener("scroll", highlightNav);
 
-    // Бургер-меню
-    const menuToggle = document.querySelector('.menu-toggle');
-    const dropdownMenu = document.querySelector('.dropdown-menu');
+    // Обработка кликов на гамбургер-меню
+    var dropdownBtn = document.querySelector('.dropbtn');
+    var dropdownContent = document.querySelector('.dropdown-content');
 
-    menuToggle.addEventListener('click', function() {
-        dropdownMenu.classList.toggle('active');
-        menuToggle.classList.toggle('active');
+    dropdownBtn.addEventListener('click', function() {
+        dropdownContent.classList.toggle('show');
+    });
+
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            if (dropdownContent.classList.contains('show')) {
+                dropdownContent.classList.remove('show');
+            }
+        }
     });
 });
