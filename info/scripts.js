@@ -29,9 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            var target = this.getAttribute('href');
+            if (target.startsWith('#')) {
+                document.querySelector(target).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            } else {
+                window.location.href = target;
+            }
         });
     });
 

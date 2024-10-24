@@ -20,6 +20,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative; /* Добавляем position: relative для контейнера */
 }
 
 .logo-container {
@@ -212,6 +213,73 @@ h1.animate, h2.animate {
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Стили для гамбургер-меню */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 10; /* Убедимся, что меню находится поверх других элементов */
+}
+
+.dropbtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    transition: background-color 0.3s, color 0.3s;
+    z-index: 10; /* Убедимся, что кнопка находится поверх других элементов */
+    animation: pulse 1.5s infinite; /* Добавляем анимацию пульсации */
+}
+
+.dropbtn:hover {
+    background-color: #555;
+    color: #ffd700;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Стили для отображения выпадающего меню */
+.dropdown-content.show {
+    display: block;
+}
+
+/* Анимация пульсации */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 /* Медиа-запросы для адаптивного дизайна */
