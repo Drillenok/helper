@@ -29,9 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
+            var target = this.getAttribute('href');
+            if (target.startsWith('#')) {
+                document.querySelector(target).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            } else {
+                window.location.href = target;
+            }
         });
     });
 
@@ -91,4 +96,20 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     window.addEventListener("scroll", highlightNav);
+
+    // Обработка кликов на гамбургер-меню
+    var dropdownBtn = document.querySelector('.dropbtn');
+    var dropdownContent = document.querySelector('.dropdown-content');
+
+    dropdownBtn.addEventListener('click', function() {
+        dropdownContent.classList.toggle('show');
+    });
+
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('.dropbtn')) {
+            if (dropdownContent.classList.contains('show')) {
+                dropdownContent.classList.remove('show');
+            }
+        }
+    });
 });
