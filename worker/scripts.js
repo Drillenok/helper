@@ -6,77 +6,90 @@ document.addEventListener('DOMContentLoaded', () => {
     var scene = document.getElementById('intro');
     var parallaxInstance = new Parallax(scene);
 
-// Функция для загрузки данных из JSON
-async function loadWorkers() {
-    try {
-        const response = await fetch('dobavlen.json'); // Обновите путь
-        const workers = await response.json();
-        displayWorkers(workers);
-    } catch (error) {
-        console.error('Ошибка при загрузке данных:', error);
-    }
-}
-
-// Функция для добавления работника
-async function addWorker(event) {
-    event.preventDefault();
-    const formData = new FormData(workerForm);
-    const worker = Object.fromEntries(formData.entries());
-
-    try {
-        const response = await fetch('dobavlen.json'); // Обновите путь
-        const workers = await response.json();
-        workers.push(worker);
-        await fetch('dobavlen.json', { // Обновите путь
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(workers)
-        });
-        displayWorkers(workers);
-        workerForm.reset();
-    } catch (error) {
-        console.error('Ошибка при добавлении работника:', error);
-    }
-}
-
-// Функция для удаления работника
-async function deleteWorker(index) {
-    try {
-        const response = await fetch('dobavlen.json'); // Обновите путь
-        const workers = await response.json();
-        workers.splice(index, 1);
-        await fetch('dobavlen.json', { // Обновите путь
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(workers)
-        });
-        displayWorkers(workers);
-    } catch (error) {
-        console.error('Ошибка при удалении работника:', error);
-    }
-}
-
-// Функция для авторизации
-async function authenticate() {
-    try {
-        const response = await fetch('auth.json'); // Обновите путь
-        const authData = await response.json();
-        const username = prompt('Введите имя пользователя:');
-        const password = prompt('Введите пароль:');
-        const user = authData.find(user => user.username === username && user.password === password);
-        if (user) {
-            loadWorkers();
-        } else {
-            alert('Неверное имя пользователя или пароль');
+    // Функция для загрузки данных из JSON
+    async function loadWorkers() {
+        try {
+            const response = await fetch('https://drillenok.github.io/worker/dobavlen.json'); // Обновите путь
+            const workers = await response.json();
+            displayWorkers(workers);
+        } catch (error) {
+            console.error('Ошибка при загрузке данных:', error);
         }
-    } catch (error) {
-        console.error('Ошибка при авторизации:', error);
     }
-}
+
+    // Функция для добавления работника
+    async function addWorker(event) {
+        event.preventDefault();
+        const formData = new FormData(workerForm);
+        const worker = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch('https://drillenok.github.io/worker/dobavlen.json'); // Обновите путь
+            const workers = await response.json();
+            workers.push(worker);
+            await fetch('https://drillenok.github.io/worker/dobavlen.json', { // Обновите путь
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(workers)
+            });
+            displayWorkers(workers);
+            workerForm.reset();
+        } catch (error) {
+            console.error('Ошибка при добавлении работника:', error);
+        }
+    }
+
+    // Функция для удаления работника
+    async function deleteWorker(index) {
+        try {
+            const response = await fetch('https://drillenok.github.io/worker/dobavlen.json'); // Обновите путь
+            const workers = await response.json();
+            workers.splice(index, 1);
+            await fetch('https://drillenok.github.io/worker/dobavlen.json', { // Обновите путь
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(workers)
+            });
+            displayWorkers(workers);
+        } catch (error) {
+            console.error('Ошибка при удалении работника:', error);
+        }
+    }
+
+    // Функция для авторизации
+    async function authenticate() {
+        try {
+            const response = await fetch('https://drillenok.github.io/worker/auth.json'); // Обновите путь
+            const authData = await response.json();
+            const username = prompt('Введите имя пользователя:');
+            const password = prompt('Введите пароль:');
+            const user = authData.find(user => user.username === username && user.password === password);
+            if (user) {
+                loadWorkers();
+            } else {
+                alert('Неверное имя пользователя или пароль');
+            }
+        } catch (error) {
+            console.error('Ошибка при авторизации:', error);
+        }
+    }
+
+    // Функция для отображения работников
+    function displayWorkers(workers) {
+        workerList.innerHTML = '';
+        workers.forEach((worker, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${worker.callsign} - ${worker.position}</span>
+                <button onclick="deleteWorker(${index})">Удалить</button>
+            `;
+            workerList.appendChild(li);
+        });
+    }
 
     // Инициализация
     authenticate();
