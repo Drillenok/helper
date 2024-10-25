@@ -16,10 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const toggleRegisterButton = document.getElementById('toggle-register');
     const logoutButton = document.getElementById('logout-btn');
 
-    // Инициализация паралакса
-    var scene = document.getElementById('intro');
-    var parallaxInstance = new Parallax(scene);
-
     // Функция для отображения работников
     function displayWorkers(workers) {
         workerList.innerHTML = '';
@@ -43,84 +39,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Функция для отображения запросов на доступ
-    function displayRequests(requests) {
-        requestList.innerHTML = '';
-        requests.forEach((request, index) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${request.username}</td>
-                <td>${request.password}</td>
-                <td>${request.callsign}</td>
-                <td>
-                    <button class="accept" onclick="acceptRequest(${request.id})">Принять</button>
-                    <button onclick="rejectRequest(${request.id})">Отклонить</button>
-                </td>
-            `;
-            requestList.appendChild(tr);
-        });
-    }
-
-    // Функция для отображения пользователей
-    function displayUsers(users) {
-        userList.innerHTML = '';
-        users.forEach((user, index) => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${user.username}</td>
-                <td>${user.callsign}</td>
-                <td>
-                    <button onclick="editUserUsername(${user.id})">Редактировать логин</button>
-                    <button onclick="editUserPassword(${user.id})">Редактировать пароль</button>
-                    <button onclick="deleteUser(${user.id})">Удалить доступ</button>
-                    <button onclick="grantEditAccess(${user.id})">Выдать доступ</button>
-                    <button onclick="revokeEditAccess(${user.id})">Забрать доступ</button>
-                </td>
-            `;
-            userList.appendChild(tr);
-        });
-    }
-
-    // Функция для загрузки данных из MySQL
+    // Функция для загрузки данных о работниках
     async function loadWorkers() {
         try {
-            const response = await fetch('http://localhost:5000/workers');
+            const response = await fetch('https://api.github.com/repos/your-username/your-repo/contents/data/workers.json', {
+                headers: {
+                    'Authorization': `token ${localStorage.getItem('authToken')}`
+                }
+            });
             if (!response.ok) {
                 throw new Error('Ошибка при загрузке данных');
             }
-            const workers = await response.json();
-            console.log('Полученные данные работников:', workers); // Добавлено для отладки
+            const data = await response.json();
+            const workers = JSON.parse(atob(data.content));
             displayWorkers(workers);
-        } catch (error) {
-            console.error('Ошибка при загрузке данных:', error);
-        }
-    }
-
-    // Функция для загрузки запросов на доступ
-    async function loadRequests(user) {
-        try {
-            const response = await fetch(`http://localhost:5000/requests?user=${user}`);
-            if (!response.ok) {
-                throw new Error('Ошибка при загрузке данных');
-            }
-            const requests = await response.json();
-            console.log('Полученные данные запросов:', requests); // Добавлено для отладки
-            displayRequests(requests);
-        } catch (error) {
-            console.error('Ошибка при загрузке данных:', error);
-        }
-    }
-
-    // Функция для загрузки пользователей
-    async function loadUsers(user) {
-        try {
-            const response = await fetch(`http://localhost:5000/users?user=${user}`);
-            if (!response.ok) {
-                throw new Error('Ошибка при загрузке данных');
-            }
-            const users = await response.json();
-            console.log('Полученные данные пользователей:', users); // Добавлено для отладки
-            displayUsers(users);
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
         }
@@ -133,118 +65,39 @@ document.addEventListener('DOMContentLoaded', () => {
         const worker = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('http://localhost:5000/workers', {
-                method: 'POST',
+            const response = await fetch('https://api.github.com/repos/your-username/your-repo/contents/data/workers.json', {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(worker)
+                    'Authorization': `token ${localStorage.getItem('authToken')}`
+                }
             });
             if (!response.ok) {
-                throw new Error('Ошибка при добавлении работника');
+                throw new Error('Ошибка при получении данных');
             }
-            const result = await response.json();
+            const data = await response.json();
+            const workers = JSON.parse(atob(data.content));
+            workers.push(worker);
+
+            const updatedContent = btoa(JSON.stringify(workers, null, 2));
+            const updateResponse = await fetch(data.url, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${localStorage.getItem('authToken')}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: 'Update workers.json',
+                    content: updatedContent,
+                    sha: data.sha
+                })
+            });
+            if (!updateResponse.ok) {
+                throw new Error('Ошибка при обновлении данных');
+            }
             loadWorkers();
             workerForm.reset();
         } catch (error) {
             console.error('Ошибка при добавлении работника:', error);
-        }
-    }
-
-    // Функция для удаления работника
-    async function deleteWorker(worker_id) {
-        const user_id = localStorage.getItem('user_id');
-        try {
-            const response = await fetch(`http://localhost:5000/workers/${worker_id}?user_id=${user_id}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) {
-                throw new Error('Ошибка при удалении работника');
-            }
-            const result = await response.json();
-            loadWorkers();
-        } catch (error) {
-            console.error('Ошибка при удалении работника:', error);
-        }
-    }
-
-    // Функция для редактирования работника
-    async function editWorker(worker_id) {
-        try {
-            const response = await fetch(`http://localhost:5000/workers/${worker_id}`);
-            if (!response.ok) {
-                throw new Error('Ошибка при получении данных работника');
-            }
-            const worker = await response.json();
-            fillForm(worker);
-        } catch (error) {
-            console.error('Ошибка при получении данных работника:', error);
-        }
-    }
-
-    // Функция для заполнения формы данными работника
-    function fillForm(worker) {
-        document.getElementById('callsign').value = worker.callsign;
-        document.getElementById('discord-id').value = worker.discord_id;
-        document.getElementById('position').value = worker.position;
-        document.getElementById('email').value = worker.email;
-        document.getElementById('reprimands').value = worker.reprimands;
-        document.getElementById('vacation').value = worker.vacation;
-        document.getElementById('department').value = worker.department;
-        document.getElementById('points').value = worker.points;
-        workerForm.dataset.workerId = worker.id;
-    }
-
-    // Функция для обновления работника
-    async function updateWorker(event) {
-        event.preventDefault();
-        const formData = new FormData(workerForm);
-        const worker = Object.fromEntries(formData.entries());
-        const worker_id = workerForm.dataset.workerId;
-        const user_id = localStorage.getItem('user_id');
-
-        try {
-            const response = await fetch(`http://localhost:5000/workers/${worker_id}?user_id=${user_id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(worker)
-            });
-            if (!response.ok) {
-                throw new Error('Ошибка при обновлении работника');
-            }
-            const result = await response.json();
-            loadWorkers();
-            workerForm.reset();
-            delete workerForm.dataset.workerId;
-        } catch (error) {
-            console.error('Ошибка при обновлении работника:', error);
-        }
-    }
-
-    // Функция для регистрации
-    async function register(event) {
-        event.preventDefault();
-        const formData = new FormData(registerForm);
-        const data = Object.fromEntries(formData.entries());
-
-        try {
-            const response = await fetch('http://localhost:5000/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            if (!response.ok) {
-                throw new Error('Ошибка при регистрации');
-            }
-            const result = await response.json();
-            registerMessage.innerHTML = '<p style="color: green;">Ожидайте одобрения от создателя</p>';
-        } catch (error) {
-            console.error('Ошибка при регистрации:', error);
-            registerMessage.innerHTML = '<p style="color: red;">Ошибка при регистрации</p>';
         }
     }
 
@@ -255,12 +108,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('http://localhost:5000/login', {
-                method: 'POST',
+            const response = await fetch('https://api.github.com/user', {
+                method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
+                    'Authorization': `Basic ${btoa(`${data.username}:${data.password}`)}`
+                }
             });
             if (!response.ok) {
                 throw new Error('Неверное имя пользователя или пароль');
@@ -272,14 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
             otherSections.forEach(section => section.classList.remove('hidden'));
             document.body.classList.remove('no-scroll');
             loadWorkers(); // Загрузка работников после успешной авторизации
-            if (result.user.username === 'Drill') {
-                loadRequests(result.user.username); // Загрузка запросов для пользователя Drill
-                loadUsers(result.user.username); // Загрузка пользователей для пользователя Drill
-                requestsSection.classList.remove('hidden');
-                usersSection.classList.remove('hidden');
-            }
             localStorage.setItem('authToken', result.token);
-            localStorage.setItem('user_id', result.user.id);
         } catch (error) {
             console.error('Ошибка при авторизации:', error);
             loginMessage.innerHTML = '<p style="color: red;">Неверное имя пользователя или пароль</p>';
@@ -289,7 +134,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция для выхода из аккаунта
     function logout() {
         localStorage.removeItem('authToken');
-        localStorage.removeItem('user_id');
         loginSection.style.display = 'block';
         registerSection.style.display = 'none';
         otherSections.forEach(section => section.classList.add('hidden'));
@@ -298,153 +142,13 @@ document.addEventListener('DOMContentLoaded', () => {
         location.reload(); // Перезагрузка страницы
     }
 
-    // Функция для принятия запроса
-    async function acceptRequest(request_id) {
-        try {
-            const response = await fetch(`http://localhost:5000/requests/${request_id}/accept`, {
-                method: 'POST'
-            });
-            if (!response.ok) {
-                throw new Error('Ошибка при принятии запроса');
-            }
-            const result = await response.json();
-            loadRequests('Drill');
-        } catch (error) {
-            console.error('Ошибка при принятии запроса:', error);
-        }
-    }
-
-    // Функция для отклонения запроса
-    async function rejectRequest(request_id) {
-        try {
-            const response = await fetch(`http://localhost:5000/requests/${request_id}/reject`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) {
-                throw new Error('Ошибка при отклонении запроса');
-            }
-            const result = await response.json();
-            loadRequests('Drill');
-        } catch (error) {
-            console.error('Ошибка при отклонении запроса:', error);
-        }
-    }
-
-    // Функция для редактирования логина пользователя
-    async function editUserUsername(user_id) {
-        const newUsername = prompt('Введите новый логин:');
-        if (newUsername) {
-            try {
-                const response = await fetch(`http://localhost:5000/users/${user_id}/username`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username: newUsername })
-                });
-                if (!response.ok) {
-                    throw new Error('Ошибка при обновлении логина');
-                }
-                const result = await response.json();
-                loadUsers('Drill');
-            } catch (error) {
-                console.error('Ошибка при обновлении логина:', error);
-            }
-        }
-    }
-
-    // Функция для редактирования пароля пользователя
-    async function editUserPassword(user_id) {
-        const newPassword = prompt('Введите новый пароль:');
-        if (newPassword) {
-            try {
-                const response = await fetch(`http://localhost:5000/users/${user_id}/password`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ password: newPassword })
-                });
-                if (!response.ok) {
-                    throw new Error('Ошибка при обновлении пароля');
-                }
-                const result = await response.json();
-                loadUsers('Drill');
-            } catch (error) {
-                console.error('Ошибка при обновлении пароля:', error);
-            }
-        }
-    }
-
-    // Функция для удаления пользователя
-    async function deleteUser(user_id) {
-        try {
-            const response = await fetch(`http://localhost:5000/users/${user_id}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) {
-                throw new Error('Ошибка при удалении пользователя');
-            }
-            const result = await response.json();
-            loadUsers('Drill');
-        } catch (error) {
-            console.error('Ошибка при удалении пользователя:', error);
-        }
-    }
-
-    // Функция для выдачи доступа к редактированию
-    async function grantEditAccess(user_id) {
-        try {
-            const response = await fetch(`http://localhost:5000/users/${user_id}/grant_edit_access`, {
-                method: 'POST'
-            });
-            if (!response.ok) {
-                throw new Error('Ошибка при выдаче доступа');
-            }
-            const result = await response.json();
-            loadUsers('Drill');
-        } catch (error) {
-            console.error('Ошибка при выдаче доступа:', error);
-        }
-    }
-
-    // Функция для забора доступа к редактированию
-    async function revokeEditAccess(user_id) {
-        try {
-            const response = await fetch(`http://localhost:5000/users/${user_id}/revoke_edit_access`, {
-                method: 'POST'
-            });
-            if (!response.ok) {
-                throw new Error('Ошибка при заборе доступа');
-            }
-            const result = await response.json();
-            loadUsers('Drill');
-        } catch (error) {
-            console.error('Ошибка при заборе доступа:', error);
-        }
-    }
-
     // Инициализация
     loginForm.addEventListener('submit', login);
-    registerForm.addEventListener('submit', register);
-    workerForm.addEventListener('submit', (event) => {
-        if (workerForm.dataset.workerId) {
-            updateWorker(event);
-        } else {
-            addWorker(event);
-        }
-    });
+    workerForm.addEventListener('submit', addWorker);
 
     // Функция для удаления работника (глобальная)
     window.deleteWorker = deleteWorker;
     window.editWorker = editWorker;
-    window.acceptRequest = acceptRequest;
-    window.rejectRequest = rejectRequest;
-    window.editUserUsername = editUserUsername;
-    window.editUserPassword = editUserPassword;
-    window.deleteUser = deleteUser;
-    window.grantEditAccess = grantEditAccess;
-    window.revokeEditAccess = revokeEditAccess;
 
     // Анимация для кнопок
     var buttons = document.getElementsByClassName("collapsible");
@@ -561,12 +265,6 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('no-scroll');
         logoutButton.classList.remove('hidden');
         loadWorkers(); // Загрузка работников после успешной авторизации
-        if (authToken === 'Drill') {
-            loadRequests('Drill'); // Загрузка запросов для пользователя Drill
-            loadUsers('Drill'); // Загрузка пользователей для пользователя Drill
-            requestsSection.classList.remove('hidden');
-            usersSection.classList.remove('hidden');
-        }
     } else {
         // Скрытие секций и отключение прокрутки до авторизации
         document.body.classList.add('no-scroll');
