@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const workerForm = document.getElementById('worker-form');
     const workerList = document.getElementById('worker-items');
     const loginForm = document.getElementById('login-form');
+    const loginMessage = document.getElementById('login-message');
+    const loginSection = document.getElementById('login');
+    const otherSections = document.querySelectorAll('section:not(#login)');
 
     // Инициализация паралакса
     var scene = document.getElementById('intro');
@@ -92,11 +95,11 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             const result = await response.json();
             if (response.ok) {
-                alert('Успешная авторизация');
-                // Перенаправление на страницу с работниками или другую страницу
-                window.location.href = '#add-worker';
+                loginMessage.innerHTML = '<p style="color: green;">Успешная авторизация</p>';
+                loginSection.style.display = 'none';
+                otherSections.forEach(section => section.style.display = 'block');
             } else {
-                alert('Неверное имя пользователя или пароль');
+                loginMessage.innerHTML = '<p style="color: red;">Неверное имя пользователя или пароль</p>';
             }
         } catch (error) {
             console.error('Ошибка при авторизации:', error);
@@ -104,8 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Инициализация
-    loadWorkers();
-    workerForm.addEventListener('submit', addWorker);
     loginForm.addEventListener('submit', login);
 
     // Функция для удаления работника (глобальная)
