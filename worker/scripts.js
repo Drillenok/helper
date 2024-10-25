@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const workers = await response.json();
             workers.push(worker);
 
-            const token = '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'; // Замените на ваш личный токен
+            const token = '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'; // Замените на ваш личный токен
             const repoOwner = 'drillenok';
             const repoName = 'helper';
             const filePath = 'worker/dobavlen.json';
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const workers = await response.json();
             workers.splice(index, 1);
 
-            const token = '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'; // Замените на ваш личный токен
+            const token = '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'; // Замените на ваш личный токен
             const repoOwner = 'drillenok';
             const repoName = 'helper';
             const filePath = 'worker/dobavlen.json';
@@ -121,6 +121,9 @@ document.addEventListener('DOMContentLoaded', () => {
     async function authenticate() {
         try {
             const response = await fetch('https://drillenok.github.io/worker/auth.json');
+            if (!response.ok) {
+                throw new Error('Файл auth.json не найден');
+            }
             const authData = await response.json();
             const username = prompt('Введите имя пользователя:');
             const password = prompt('Введите пароль:');
