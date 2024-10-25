@@ -71,7 +71,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Функция для удаления работника (глобальная)
     window.deleteWorker = deleteWorker;
-});
 
     // Анимация для кнопок
     var buttons = document.getElementsByClassName("collapsible");
