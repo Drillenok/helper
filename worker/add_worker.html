@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавление работников Интендантов</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<header>
+    <nav>
+        <div class="logo-container">
+            <img src="https://i.imgur.com/fIjK3Y6.png" alt="Логотип" class="logo">
+        </div>
+        <ul>
+            <li><a href="#intro">Начало</a></li>
+            <li><a href="#add-worker">Добавить работника</a></li>
+            <li><a href="#contact">Контакты</a></li>
+        </ul>
+        <div class="dropdown">
+            <button class="dropbtn">Меню</button>
+            <div class="dropdown-content">
+                <a href="https://drillenok.github.io/helper/direktives/direktives.html">Директивы Интендантов</a>
+                <a href="https://drillenok.github.io/helper/info/info.html">Информация для Интендантов</a>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<section id="login" class="reveal">
+    <h2>Авторизация</h2>
+    <form id="login-form">
+        <div class="form-group">
+            <label for="username">Имя пользователя:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Пароль:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Войти</button>
+        <div id="login-message"></div>
+    </form>
+</section>
+
+<section id="intro" class="parallax-window reveal" style="background-image: url('https://cdnb.artstation.com/p/assets/images/images/013/244/939/large/malik-ouda-10-post-fx.jpg?1538715645');">
+    <div class="intro-content">
+        <h1>Список работников</h1>
+        <p>Добро пожаловать на сайт с составом Интендантов</p>
+        <div class="animation-container">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </div>
+</section>
+
+<section id="add-worker" class="reveal" style="background-image: url('https://i.pinimg.com/originals/e1/69/9c/e1699c982396398139e4fc8c010c90f8.jpg');">
+    <h2>Добавление работника</h2>
+    <form id="worker-form">
+        <div class="form-group">
+            <label for="callsign">Позывной:</label>
+            <input type="text" id="callsign" name="callsign" required>
+        </div>
+        <div class="form-group">
+            <label for="discord-id">Discord ID:</label>
+            <input type="text" id="discord-id" name="discord_id" required>
+        </div>
+        <div class="form-group">
+            <label for="position">Должность:</label>
+            <input type="text" id="position" name="position" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Почта:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="reprimands">Выговоры:</label>
+            <input type="text" id="reprimands" name="reprimands" required>
+        </div>
+        <div class="form-group">
+            <label for="vacation">Отпуск:</label>
+            <input type="text" id="vacation" name="vacation" required>
+        </div>
+        <div class="form-group">
+            <label for="department">Отдел:</label>
+            <input type="text" id="department" name="department" required>
+        </div>
+        <div class="form-group">
+            <label for="points">Баллы:</label>
+            <input type="number" id="points" name="points" required>
+        </div>
+        <button type="submit">Добавить работника</button>
+    </form>
+
+    <div id="worker-list">
+        <h3>Список работников</h3>
+        <ul id="worker-items"></ul>
+    </div>
+</section>
+
+<section id="contact" class="reveal">
+    <h2>Контакты</h2>
+    <p>Если у вас возникли вопросы, вы можете связаться со мной по следующим контактам:</p>
+    <p>Telegram: @Yageini</p>
+    <p>Discord: drillenok#0</p>
+</section>
+
+<footer>
+    <p>&copy; 2024 Обучение по использованию команд бота</p>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.min.js" defer></script>
+<script src="scripts.js"></script>
+</body>
+</html>
