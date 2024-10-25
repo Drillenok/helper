@@ -19,38 +19,108 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Функция для загрузки данных из localStorage
-    function loadWorkers() {
-        const workers = JSON.parse(localStorage.getItem('workers')) || [];
-        displayWorkers(workers);
+    // Функция для загрузки данных из JSON
+    async function loadWorkers() {
+        try {
+            const response = await fetch('https://drillenok.github.io/worker/dobavlen.json');
+            const workers = await response.json();
+            displayWorkers(workers);
+        } catch (error) {
+            console.error('Ошибка при загрузке данных:', error);
+        }
     }
 
     // Функция для добавления работника
-    function addWorker(event) {
+    async function addWorker(event) {
         event.preventDefault();
         const formData = new FormData(workerForm);
         const worker = Object.fromEntries(formData.entries());
 
-        let workers = JSON.parse(localStorage.getItem('workers')) || [];
-        workers.push(worker);
-        localStorage.setItem('workers', JSON.stringify(workers));
+        try {
+            const response = await fetch('https://drillenok.github.io/worker/dobavlen.json');
+            const workers = await response.json();
+            workers.push(worker);
 
-        displayWorkers(workers);
-        workerForm.reset();
+            const token = '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'; // Замените на ваш личный токен
+            const repoOwner = 'drillenok';
+            const repoName = 'helper';
+            const filePath = 'worker/dobavlen.json';
+            const message = 'Update workers data';
+            const content = btoa(JSON.stringify(workers, null, 2));
+
+            const shaResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                headers: {
+                    Authorization: `token ${token}`
+                }
+            });
+            const shaData = await shaResponse.json();
+            const sha = shaData.sha;
+
+            await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message,
+                    content,
+                    sha
+                })
+            });
+
+            displayWorkers(workers);
+            workerForm.reset();
+        } catch (error) {
+            console.error('Ошибка при добавлении работника:', error);
+        }
     }
 
     // Функция для удаления работника
-    function deleteWorker(index) {
-        let workers = JSON.parse(localStorage.getItem('workers')) || [];
-        workers.splice(index, 1);
-        localStorage.setItem('workers', JSON.stringify(workers));
-        displayWorkers(workers);
+    async function deleteWorker(index) {
+        try {
+            const response = await fetch('https://drillenok.github.io/worker/dobavlen.json');
+            const workers = await response.json();
+            workers.splice(index, 1);
+
+            const token = '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'; // Замените на ваш личный токен
+            const repoOwner = 'drillenok';
+            const repoName = 'helper';
+            const filePath = 'worker/dobavlen.json';
+            const message = 'Update workers data';
+            const content = btoa(JSON.stringify(workers, null, 2));
+
+            const shaResponse = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                headers: {
+                    Authorization: `token ${token}`
+                }
+            });
+            const shaData = await shaResponse.json();
+            const sha = shaData.sha;
+
+            await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                method: 'PUT',
+                headers: {
+                    Authorization: `token ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message,
+                    content,
+                    sha
+                })
+            });
+
+            displayWorkers(workers);
+        } catch (error) {
+            console.error('Ошибка при удалении работника:', error);
+        }
     }
 
     // Функция для авторизации
     async function authenticate() {
         try {
-            const response = await fetch('https://drillenok.github.io/worker/auth.json'); // Обновите путь
+            const response = await fetch('https://drillenok.github.io/worker/auth.json');
             const authData = await response.json();
             const username = prompt('Введите имя пользователя:');
             const password = prompt('Введите пароль:');
