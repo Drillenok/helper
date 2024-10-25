@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Функция для отображения работников
     function displayWorkers(workers) {
         workerList.innerHTML = '';
-        workers.forEach((worker) => {
+        workers.forEach((worker, index) => {
             const li = document.createElement('li');
             li.innerHTML = `
                 <span>${worker.callsign} - ${worker.position}</span>
@@ -71,6 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Функция для удаления работника (глобальная)
     window.deleteWorker = deleteWorker;
+});
 
     // Анимация для кнопок
     var buttons = document.getElementsByClassName("collapsible");
