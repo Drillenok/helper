@@ -19,58 +19,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Функция для загрузки данных из JSON
-    async function loadWorkers() {
-        try {
-            const response = await fetch('https://drillenok.github.io/worker/dobavlen.json'); // Обновите путь
-            const workers = await response.json();
-            displayWorkers(workers);
-        } catch (error) {
-            console.error('Ошибка при загрузке данных:', error);
-        }
+    // Функция для загрузки данных из localStorage
+    function loadWorkers() {
+        const workers = JSON.parse(localStorage.getItem('workers')) || [];
+        displayWorkers(workers);
     }
 
     // Функция для добавления работника
-    async function addWorker(event) {
+    function addWorker(event) {
         event.preventDefault();
         const formData = new FormData(workerForm);
         const worker = Object.fromEntries(formData.entries());
 
-        try {
-            const response = await fetch('https://drillenok.github.io/worker/dobavlen.json'); // Обновите путь
-            const workers = await response.json();
-            workers.push(worker);
-            await fetch('https://drillenok.github.io/worker/dobavlen.json', { // Обновите путь
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(workers)
-            });
-            displayWorkers(workers);
-            workerForm.reset();
-        } catch (error) {
-            console.error('Ошибка при добавлении работника:', error);
-        }
+        let workers = JSON.parse(localStorage.getItem('workers')) || [];
+        workers.push(worker);
+        localStorage.setItem('workers', JSON.stringify(workers));
+
+        displayWorkers(workers);
+        workerForm.reset();
     }
 
     // Функция для удаления работника
-    async function deleteWorker(index) {
-        try {
-            const response = await fetch('https://drillenok.github.io/worker/dobavlen.json'); // Обновите путь
-            const workers = await response.json();
-            workers.splice(index, 1);
-            await fetch('https://drillenok.github.io/worker/dobavlen.json', { // Обновите путь
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(workers)
-            });
-            displayWorkers(workers);
-        } catch (error) {
-            console.error('Ошибка при удалении работника:', error);
-        }
+    function deleteWorker(index) {
+        let workers = JSON.parse(localStorage.getItem('workers')) || [];
+        workers.splice(index, 1);
+        localStorage.setItem('workers', JSON.stringify(workers));
+        displayWorkers(workers);
     }
 
     // Функция для авторизации
