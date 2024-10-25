@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const workers = await response.json();
             workers.push(worker);
 
-            const token = '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'; // Замените на ваш личный токен
+            const token = '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'; // Замените на ваш личный токен
             const repoOwner = 'drillenok';
             const repoName = 'helper';
             const filePath = 'worker/dobavlen.json';
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const workers = await response.json();
             workers.splice(index, 1);
 
-            const token = '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'; // Замените на ваш личный токен
+            const token = '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'; // Замените на ваш личный токен
             const repoOwner = 'drillenok';
             const repoName = 'helper';
             const filePath = 'worker/dobavlen.json';
