@@ -12,8 +12,17 @@ document.addEventListener('DOMContentLoaded', () => {
         workers.forEach((worker, index) => {
             const li = document.createElement('li');
             li.innerHTML = `
-                <span>${worker.callsign} - ${worker.position}</span>
-                <button onclick="deleteWorker(${worker.id})">Удалить</button>
+                <div>
+                    <strong>Позывной:</strong> ${worker.callsign}<br>
+                    <strong>Discord ID:</strong> ${worker.discord_id}<br>
+                    <strong>Должность:</strong> ${worker.position}<br>
+                    <strong>Почта:</strong> ${worker.email}<br>
+                    <strong>Выговоры:</strong> ${worker.reprimands}<br>
+                    <strong>Отпуск:</strong> ${worker.vacation}<br>
+                    <strong>Отдел:</strong> ${worker.department}<br>
+                    <strong>Баллы:</strong> ${worker.points}<br>
+                </div>
+                <button onclick="deleteWorker(\${worker.id})">Удалить</button>
             `;
             workerList.appendChild(li);
         });
