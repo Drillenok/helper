@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const response = await fetch('http://localhost:5000/workers');
             const workers = await response.json();
+            console.log('Полученные данные работников:', workers); // Добавлено для отладки
             displayWorkers(workers);
         } catch (error) {
             console.error('Ошибка при загрузке данных:', error);
