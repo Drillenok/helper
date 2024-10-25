@@ -6,6 +6,19 @@ document.addEventListener('DOMContentLoaded', () => {
     var scene = document.getElementById('intro');
     var parallaxInstance = new Parallax(scene);
 
+    // Функция для отображения работников
+    function displayWorkers(workers) {
+        workerList.innerHTML = '';
+        workers.forEach((worker, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${worker.callsign} - ${worker.position}</span>
+                <button onclick="deleteWorker(${index})">Удалить</button>
+            `;
+            workerList.appendChild(li);
+        });
+    }
+
     // Функция для загрузки данных из JSON
     async function loadWorkers() {
         try {
@@ -76,19 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) {
             console.error('Ошибка при авторизации:', error);
         }
-    }
-
-    // Функция для отображения работников
-    function displayWorkers(workers) {
-        workerList.innerHTML = '';
-        workers.forEach((worker, index) => {
-            const li = document.createElement('li');
-            li.innerHTML = `
-                <span>${worker.callsign} - ${worker.position}</span>
-                <button onclick="deleteWorker(${index})">Удалить</button>
-            `;
-            workerList.appendChild(li);
-        });
     }
 
     // Инициализация
