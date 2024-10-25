@@ -1,0 +1,379 @@
+/* Общие стили */
+body {
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #36393f;
+    color: #dcddde;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+header {
+    background-color: #2f3136;
+    padding: 1rem;
+    text-align: center;
+    transition: background-color 0.5s, color 0.5s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Добавляем position: relative для контейнера */
+}
+
+.logo-container {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+
+nav ul li {
+    margin: 0 1rem;
+    border: 1px solid #dcddde;
+    border-radius: 10px;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #2f3136, #36393f);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+nav ul li a {
+    color: #dcddde;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+nav ul li:hover {
+    background: linear-gradient(135deg, #36393f, #40444b);
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+nav ul li a:hover {
+    color: #7289da;
+}
+
+.parallax-window {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.parallax-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+}
+
+.parallax-layer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.intro-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    z-index: 1;
+    width: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.intro-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+section {
+    padding: 2rem;
+    text-align: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+form {
+    background-color: #222;
+    padding: 2rem;
+    border-radius: 10px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: #fff;
+}
+
+form button {
+    background-color: #333;
+    color: #fff;
+    cursor: pointer;
+    padding: 1rem;
+    width: 100%;
+    border: none;
+    text-align: center;
+    outline: none;
+    font-size: 1.2rem;
+    transition: background-color 0.3s, transform 0.3s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+form button:hover {
+    background-color: #555;
+    transform: scale(1.05);
+}
+
+#worker-list {
+    margin-top: 2rem;
+}
+
+#worker-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+#worker-list li {
+    background-color: #333;
+    margin: 0.5rem 0;
+    padding: 1rem;
+    border-radius: 5px;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#worker-list li button {
+    background-color: #ff0000;
+    color: #fff;
+    cursor: pointer;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    margin-left: 1rem;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+#worker-list li button:hover {
+    background-color: #cc0000;
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: #2f3136;
+    padding: 1rem;
+    text-align: center;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* Анимация заголовков */
+h1, h2 {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+h1.animate, h2.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Анимация появления элементов */
+.reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Стили для гамбургер-меню */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 10; /* Убедимся, что меню находится поверх других элементов */
+}
+
+.dropbtn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    color: #dcddde;
+    transition: background-color 0.3s, color 0.3s;
+    z-index: 10; /* Убедимся, что кнопка находится поверх других элементов */
+    animation: pulse 1.5s infinite; /* Добавляем анимацию пульсации */
+}
+
+.dropbtn:hover {
+    background-color: #40444b;
+    color: #7289da;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Стили для анимации бегающих белых полосок */
+.animation-container {
+    position: relative;
+    width: 100%;
+    height: 10px;
+    margin-top: 1rem;
+    overflow: hidden;
+}
+
+.line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: white;
+    animation: moveLine 2s linear infinite;
+}
+
+.line:nth-child(2) {
+    animation-duration: 2.5s;
+}
+
+.line:nth-child(3) {
+    animation-duration: 3s;
+}
+
+@keyframes moveLine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* Стили для состояния :focus */
+input:focus, button:focus {
+    outline: 2px solid #7289da;
+}
+
+/* Стили для состояния :disabled */
+input:disabled, button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+/* Стили для состояния :invalid */
+input:invalid {
+    border: 2px solid #ff0000;
+}
+
+/* Медиа-запросы для адаптивного дизайна */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 0.5rem 0;
+    }
+
+    .intro-content h1 {
+        font-size: 2rem;
+    }
+
+    form {
+        width: 90%;
+    }
+}
+
+/* Стили для скрытия секций и отключения прокрутки */
+.hidden {
+    display: none;
+}
+
+body.no-scroll {
+    overflow: hidden;
+}
