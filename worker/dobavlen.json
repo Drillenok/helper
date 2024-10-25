@@ -1,0 +1,22 @@
+[
+    {
+        "callsign": "Worker1",
+        "discord-id": "1234567890",
+        "position": "Manager",
+        "email": "worker1@example.com",
+        "reprimands": "None",
+        "vacation": "No",
+        "department": "HR",
+        "points": 100
+    },
+    {
+        "callsign": "Worker2",
+        "discord-id": "0987654321",
+        "position": "Developer",
+        "email": "worker2@example.com",
+        "reprimands": "None",
+        "vacation": "Yes",
+        "department": "IT",
+        "points": 150
+    }
+]
