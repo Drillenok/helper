@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "id": 1,
+        "username": "user1",
+        "password": "password1",
+        "callsign": "User1"
+    },
+    {
+        "id": 2,
+        "username": "user2",
+        "password": "password2",
+        "callsign": "User2"
+    }
+]
