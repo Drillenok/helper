@@ -41,85 +41,77 @@
     </div>
 </section>
 
-<section id="commands" class="reveal" style="background-image: url('https://i.pinimg.com/originals/e1/69/9c/e1699c982396398139e4fc8c010c90f8.jpg');">
-    <h2>Команды бота</h2>
-    <div class="command">
-        <button class="collapsible">/join <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Добавляет участника в таблицу.</p>
-            <p>Пример использования: /join IDN Имя Звание ДатаКМБ ДатаПовышения Отряд Специализации SteamID DiscordID Выговоры</p>
+<section id="commands-container" class="reveal" style="background-image: url('https://i.pinimg.com/originals/e1/69/9c/e1699c982396398139e4fc8c010c90f8.jpg');">
+    <section id="news">
+        <h2>Новости</h2>
+        <div class="news-container">
+            <div class="news">
+                <h3>Alt+F4 улучшает фпс</h3>
+                <p>Команды <span class="highlight">/dostupup</span>, <span class="highlight">/dostupdown</span>, <span class="highlight">/dostupinfo</span>, <span class="highlight">/dostupfullup</span>, <span class="highlight">/dostupfulldown</span> и <span class="highlight">/dostupfullinfo</span> были убраны из списка доступных команд.</p>
+                <p>Добавлены команды <span class="highlight">!под</span>, <span class="highlight">!написать</span>, <span class="highlight">!написатьроль</span>.</p>
+            </div>
         </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/dostupfullup <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Выдать полный доступ к командам /dostupup и /dostupdown кому-то.</p>
-            <p>Пример использования: /dostupfullup @пользователь</p>
+    </section>
+
+    <section id="commands">
+        <h2>Команды бота</h2>
+        <div class="command">
+            <button class="collapsible">/join <i class="fas fa-chevron-down"></i></button>
+            <div class="content">
+                <p>Добавляет участника в таблицу.</p>
+                <p>Пример использования: /join IDN Имя Звание ДатаКМБ ДатаПовышения Отряд Специализации SteamID DiscordID Выговоры</p>
+            </div>
         </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/dostupfulldown <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Забрать полный доступ к командам /dostupup и /dostupdown у кого-то.</p>
-            <p>Пример использования: /dostupfulldown @пользователь</p>
+        <div class="command">
+            <button class="collapsible">/restarttab <i class="fas fa-chevron-down"></i></button>
+            <div class="content">
+                <p>Полный перезапуск бота.</p>
+                <p>Пример использования: /restarttab</p>
+            </div>
         </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/dostupfullinfo <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Показать, у кого есть полный доступ.</p>
-            <p>Пример использования: /dostupfullinfo</p>
+        <div class="command">
+            <button class="collapsible">/vygovor_plus <i class="fas fa-chevron-down"></i></button>
+            <div class="content">
+                <p>Добавить выговор участнику.</p>
+                <p>Пример использования: /vygovor_plus Имя ПисьменныеУстные Причина</p>
+            </div>
         </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/dostupup <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Выдать доступ к команде /join кому-то.</p>
-            <p>Пример использования: /dostupup @пользователь</p>
+        <div class="command">
+            <button class="collapsible">/vygovor_minus <i class="fas fa-chevron-down"></i></button>
+            <div class="content">
+                <p>Убрать выговор у участника.</p>
+                <p>Пример использования: /vygovor_minus Имя ПисьменныеУстные Причина</p>
+            </div>
         </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/dostupdown <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Забрать доступ к команде /join у кого-то.</p>
-            <p>Пример использования: /dostupdown @пользователь</p>
+        <div class="command">
+            <button class="collapsible">/setrank <i class="fas fa-chevron-down"></i></button>
+            <div class="content">
+                <p>Изменить звание участника.</p>
+                <p>Пример использования: /setrank Имя НовоеЗвание Причина</p>
+            </div>
         </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/restarttab <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Полный перезапуск бота.</p>
-            <p>Пример использования: /restarttab</p>
+        <div class="command">
+            <button class="collapsible">!под <i class="fas fa-chevron-down"></i></button>
+            <div class="content">
+                <p>Подсчет баллов для проверяемого.</p>
+                <p>Пример использования: !под *состав* *повышения* *остальные_рапорты* *при нужде @пинг того кого проверяете*</p>
+            </div>
         </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/dostupinfo <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Показать, у кого есть доступ к команде /join.</p>
-            <p>Пример использования: /dostupinfo</p>
+        <div class="command">
+            <button class="collapsible">!написатьроль <i class="fas fa-chevron-down"></i></button>
+            <div class="content">
+                <p>Написать сообщение с упоминанием роли.</p>
+                <p>Пример использования: !написатьроль @роль текст</p>
+            </div>
         </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/vygovor_plus <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Добавить выговор участнику.</p>
-            <p>Пример использования: /vygovor_plus Имя ПисьменныеУстные Причина</p>
+        <div class="command">
+            <button class="collapsible">!написать <i class="fas fa-chevron-down"></i></button>
+            <div class="content">
+                <p>Написать сообщение без упоминания роли.</p>
+                <p>Пример использования: !написать текст</p>
+            </div>
         </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/vygovor_minus <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Убрать выговор у участника.</p>
-            <p>Пример использования: /vygovor_minus Имя ПисьменныеУстные Причина</p>
-        </div>
-    </div>
-    <div class="command">
-        <button class="collapsible">/setrank <i class="fas fa-chevron-down"></i></button>
-        <div class="content">
-            <p>Изменить звание участника.</p>
-            <p>Пример использования: /setrank Имя НовоеЗвание Причина</p>
-        </div>
-    </div>
+    </section>
 </section>
 
 <section id="contact" class="reveal">
