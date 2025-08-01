@@ -109,18 +109,28 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener("scroll", highlightNav);
 
     // Обработка кликов на гамбургер-меню
-    var dropdownBtn = document.querySelector('.dropbtn');
+    var menuIcon = document.querySelector('.menu-icon');
     var dropdownContent = document.querySelector('.dropdown-content');
 
-    dropdownBtn.addEventListener('click', function() {
+    menuIcon.addEventListener('click', function(e) {
+        e.stopPropagation();
+        this.classList.toggle('active');
         dropdownContent.classList.toggle('show');
     });
 
-    window.addEventListener('click', function(event) {
-        if (!event.target.matches('.dropbtn')) {
-            if (dropdownContent.classList.contains('show')) {
-                dropdownContent.classList.remove('show');
-            }
+    // Закрытие меню при клике вне его области
+    document.addEventListener('click', function(event) {
+        if (!event.target.closest('.dropdown')) {
+            menuIcon.classList.remove('active');
+            dropdownContent.classList.remove('show');
         }
+    });
+
+    // Закрытие меню при клике на пункт меню
+    document.querySelectorAll('.dropdown-content a').forEach(link => {
+        link.addEventListener('click', function() {
+            menuIcon.classList.remove('active');
+            dropdownContent.classList.remove('show');
+        });
     });
 });
