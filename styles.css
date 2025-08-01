@@ -20,7 +20,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative; /* Добавляем position: relative для контейнера */
+    position: relative;
 }
 
 .logo-container {
@@ -219,7 +219,7 @@ h1.animate, h2.animate {
 .dropdown {
     position: relative;
     display: inline-block;
-    z-index: 10; /* Убедимся, что меню находится поверх других элементов */
+    z-index: 10;
 }
 
 .dropbtn {
@@ -230,8 +230,8 @@ h1.animate, h2.animate {
     font-size: 16px;
     color: #fff;
     transition: background-color 0.3s, color 0.3s;
-    z-index: 10; /* Убедимся, что кнопка находится поверх других элементов */
-    animation: pulse 1.5s infinite; /* Добавляем анимацию пульсации */
+    z-index: 10;
+    animation: pulse 1.5s infinite;
 }
 
 .dropbtn:hover {
@@ -422,5 +422,122 @@ h1.animate, h2.animate {
     }
     100% {
         background-color: #ffd700;
+    }
+}
+
+/* Новые стили для меню */
+.menu-icon {
+    width: 40px;
+    height: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 100;
+    transition: transform 0.3s ease;
+}
+
+.menu-line {
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    margin-left: auto;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: rgba(30, 30, 30, 0.95);
+    min-width: 250px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+    z-index: 99;
+    border-radius: 10px;
+    overflow: hidden;
+    transform: translateY(10px);
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.dropdown-content a {
+    color: #fff;
+    padding: 15px 20px;
+    text-decoration: none;
+    display: block;
+    transition: all 0.3s;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.dropdown-content a:last-child {
+    border-bottom: none;
+}
+
+.dropdown-content a:before {
+    content: '';
+    position: absolute;
+    left: -100%;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.2), transparent);
+    transition: all 0.6s;
+}
+
+.dropdown-content a:hover {
+    background-color: rgba(255, 215, 0, 0.1);
+    padding-left: 25px;
+}
+
+.dropdown-content a:hover:before {
+    left: 100%;
+}
+
+.dropdown-content.show {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Анимация иконки при открытии */
+.menu-icon.active .menu-line:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.menu-icon.active .menu-line:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-icon.active .menu-line:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
+/* Эффект свечения при наведении */
+.menu-icon:hover .menu-line {
+    background-color: #ffd700;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.8);
+}
+
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .dropdown {
+        position: absolute;
+        right: 1rem;
+        top: 1rem;
+    }
+    
+    .dropdown-content {
+        min-width: 200px;
     }
 }
